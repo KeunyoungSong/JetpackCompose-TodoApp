@@ -33,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.basic_todoapp.ui.theme.BasicTodoAppTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -49,7 +50,7 @@ class MainActivity : ComponentActivity() {
 }
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun TopLevel() {
+fun TopLevel(viewModel: ToDoViewModel = viewModel()) {
     val (text, setText) = remember { mutableStateOf("") }
     // ToDoData 의 속성은 immutable 로 선언하고 TodoData 는 mutable 로 선언. 리스트 아이템을 변경하여 ui 업데이트
     val todoList = remember { mutableStateListOf<ToDoData>() }
@@ -163,6 +164,7 @@ data class ToDoData(
     val text: String,
     val done: Boolean = false
 )
+
 @Preview(showBackground = true)
 @Composable
 fun TodoInputTruePreview() {
