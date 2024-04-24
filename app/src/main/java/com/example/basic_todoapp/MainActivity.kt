@@ -24,7 +24,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateListOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -32,8 +31,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.basic_todoapp.ui.theme.BasicTodoAppTheme
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.basic_todoapp.ui.theme.BasicTodoAppTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,36 +50,19 @@ class MainActivity : ComponentActivity() {
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
 fun TopLevel(viewModel: ToDoViewModel = viewModel()) {
-    val (text, setText) = remember { mutableStateOf("") }
+    // ViewModel 을 사용하기 위해 `import androidx.lifecycle.viewmodel.compose.viewModel` 를 직접 추가하자
     // ToDoData 의 속성은 immutable 로 선언하고 TodoData 는 mutable 로 선언. 리스트 아이템을 변경하여 ui 업데이트
-    val todoList = remember { mutableStateListOf<ToDoData>() }
-    val onSubmit: (String) -> Unit = { text ->
-        val key = (todoList.lastOrNull()?.key ?: 0) + 1
-        todoList.add(ToDoData(key, text))
-        setText("")
-    }
-    val onToggle: (Int, Boolean) -> Unit = { key, checked ->
-        val index = todoList.indexOfFirst { it.key == key }
-        todoList[index] = todoList[index].copy(done = checked)
-    }
-    val onDelete: (Int) -> Unit = { key ->
-        val index = todoList.indexOfFirst { it.key == key }
-        todoList.removeAt(index)
-    }
-    val onEdit: (Int, String) -> Unit = { key, text ->
-        val index = todoList.indexOfFirst { it.key == key }
-        todoList[index] = todoList[index].copy(text = text)
-    }
+
 
 
     Scaffold {
         Column {
-            ToDoInput(text = text, onTextChange = setText, onSubmit = onSubmit)
+            ToDoInput(text = viewModel.text.value, onTextChange = {viewModel.text.value = it}, onSubmit = viewModel.onSubmit)
 
             LazyColumn {
                 // key 를 설정하는 것은 성능을 위함
-                items(todoList, key = {it.key}) { toDoData ->
-                    TodoItem(toDoData = toDoData, onToggle = onToggle, onDelete = onDelete, onEdit = onEdit)
+                items(viewModel.todoList, key = {it.key}) { toDoData ->
+                    TodoItem(toDoData = toDoData, onToggle = viewModel.onToggle, onDelete = viewModel.onDelete, onEdit = viewModel.onEdit)
                 }
             }
         }
