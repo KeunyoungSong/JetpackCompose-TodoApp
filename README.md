@@ -1,15 +1,19 @@
 # Todo App with Jetpack Compose
 
-ComposeBom version: 2023.08.00
+이 프로젝트는 Jetpack Compose를 활용하여 기본적인 Todo 앱을 구현합니다.
 
-## Jetpack Compose 를 활용한 기본적인 todo app 구현
+### ComposeBom 버전
+- 2023.08.00
 
-할 일 목록의 아래 기능을 제공합니다
+## 브랜치 정보
+- `basic-implementation`: 기본 구현
+- `viewmodel-implementation`: ViewModel을 적용한 구현
 
-1. 추가
-2. 삭제
-3. 수정
-4. 완료 체크
+## 주요 기능
+- **추가**: 새로운 할 일을 목록에 추가
+- **삭제**: 기존의 할 일을 목록에서 삭제
+- **수정**: 목록에 있는 할 일의 내용을 수정
+- **완료 체크**: 할 일의 완료 상태를 체크하거나 해제
 
 ## 미리보기
 
