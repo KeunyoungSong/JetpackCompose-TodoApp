@@ -5,10 +5,6 @@
 ### ComposeBom 버전
 - 2023.08.00
 
-## 브랜치 정보
-- `basic-implementation`: 기본 구현
-- `viewmodel-implementation`: ViewModel을 적용한 구현
-
 ## 주요 기능
 - **추가**: 새로운 할 일을 목록에 추가
 - **삭제**: 기존의 할 일을 목록에서 삭제
